@@ -1,0 +1,10 @@
+testId==={"T1T2Transaction":"ShoppingApi_purchase","testId":"T01_RT_DOMESTIC_LOWEST_1ADT_NOSEAT_NOEXTRAS_NOINS_CC","ssl":"https:\/\/ctovm576.dev.sabre.com:875\/testproxy\/s","runId":"B6-trunk-functional-tests-compare-snapshot-site-129","original_host":"https:\/\/sws-crt.cert.sabre.com","generateCreateSession":"false","endpoint":"http:\/\/ctovm576.dev.sabre.com:874\/testproxy\/s","airline":"B6","mode":"COMPARE"}@7B39FB48BE222FA7DCD0893F68333650
+Host===ctovm576.dev.sabre.com:875
+Content-Length===2753
+SOAPAction==="OTA"
+User-Agent===Apache CXF 2.4.1-fuse-00-43
+Connection===Keep-Alive
+Accept===*/*
+Content-Type===text/xml; charset=UTF-8
+Pragma===no-cache
+Cache-Control===no-cache

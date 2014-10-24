@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.3" jmeter="2.8 r1393162">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="MOCK_SERVER_URL" elementType="Argument">
+            <stringProp name="Argument.name">MOCK_SERVER_URL</stringProp>
+            <stringProp name="Argument.value">http://localhost:8080/proxy/s/?B6</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1349704741000</longProp>
+        <longProp name="ThreadGroup.end_time">1349704741000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SessionCreateRQ - SOAP/XML-RPC Request" enabled="false">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">${MOCK_SERVER_URL}</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
+	&lt;soap:Header&gt;
+		&lt;ns4:MessageHeader xmlns:ns8=&quot;http://www.opentravel.org/OTA/2002/11&quot;
+			xmlns:ns7=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xmlns:ns6=&quot;http://schemas.xmlsoap.org/ws/2002/12/secext&quot;
+			xmlns:ns5=&quot;http://www.w3.org/1999/xlink&quot; xmlns:ns4=&quot;http://www.ebxml.org/namespaces/messageHeader&quot;&gt;
+			&lt;ns4:From&gt;
+				&lt;ns4:PartyId&gt;99999&lt;/ns4:PartyId&gt;
+			&lt;/ns4:From&gt;
+			&lt;ns4:To&gt;
+				&lt;ns4:PartyId&gt;123123&lt;/ns4:PartyId&gt;
+			&lt;/ns4:To&gt;
+			&lt;ns4:CPAId&gt;2P&lt;/ns4:CPAId&gt;
+			&lt;ns4:ConversationId&gt;A3OE_506AEB30ECDF90CD35EB85396CEB26A0
+			&lt;/ns4:ConversationId&gt;
+			&lt;ns4:Service&gt;Session&lt;/ns4:Service&gt;
+			&lt;ns4:Action&gt;SessionCreateRQ&lt;/ns4:Action&gt;
+			&lt;ns4:MessageData&gt;
+				&lt;ns4:MessageId&gt;mid:2012-10-08T07:22:38@sabre.com&lt;/ns4:MessageId&gt;
+				&lt;ns4:Timestamp&gt;2012-10-08T07:22:38&lt;/ns4:Timestamp&gt;
+			&lt;/ns4:MessageData&gt;
+		&lt;/ns4:MessageHeader&gt;
+		&lt;ns6:Security xmlns:ns8=&quot;http://www.opentravel.org/OTA/2002/11&quot;
+			xmlns:ns7=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xmlns:ns6=&quot;http://schemas.xmlsoap.org/ws/2002/12/secext&quot;
+			xmlns:ns5=&quot;http://www.w3.org/1999/xlink&quot; xmlns:ns4=&quot;http://www.ebxml.org/namespaces/messageHeader&quot;&gt;
+			&lt;ns6:UsernameToken&gt;
+				&lt;ns6:Username&gt;12345&lt;/ns6:Username&gt;
+				&lt;ns6:Password&gt;T1RINITY&lt;/ns6:Password&gt;
+				&lt;Organization&gt;7TZA&lt;/Organization&gt;
+				&lt;Domain&gt;AA&lt;/Domain&gt;
+			&lt;/ns6:UsernameToken&gt;
+		&lt;/ns6:Security&gt;
+	&lt;/soap:Header&gt;
+	&lt;soap:Body&gt;
+		&lt;ns8:SessionCreateRQ xmlns:ns8=&quot;http://www.opentravel.org/OTA/2002/11&quot;
+			xmlns:ns7=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xmlns:ns6=&quot;http://schemas.xmlsoap.org/ws/2002/12/secext&quot;
+			xmlns:ns5=&quot;http://www.w3.org/1999/xlink&quot; xmlns:ns4=&quot;http://www.ebxml.org/namespaces/messageHeader&quot;&gt;
+			&lt;ns8:POS&gt;
+				&lt;ns8:Source PseudoCityCode=&quot;HVV&quot; /&gt;
+			&lt;/ns8:POS&gt;
+		&lt;/ns8:SessionCreateRQ&gt;
+	&lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">OTA</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree>
+          <XPathExtractor guiclass="XPathExtractorGui" testclass="XPathExtractor" testname="BinarySecurityToken - XPath Extractor" enabled="true">
+            <stringProp name="XPathExtractor.default">&apos;****DUPA!****&apos;</stringProp>
+            <stringProp name="XPathExtractor.refname">BST</stringProp>
+            <stringProp name="XPathExtractor.xpathQuery">/Envelope/Header/Security/BinarySecurityToken</stringProp>
+            <boolProp name="XPathExtractor.validate">false</boolProp>
+            <boolProp name="XPathExtractor.tolerant">false</boolProp>
+            <boolProp name="XPathExtractor.namespace">false</boolProp>
+            <stringProp name="Scope.variable">BST</stringProp>
+            <boolProp name="XPathExtractor.report_errors">true</boolProp>
+            <boolProp name="XPathExtractor.show_warnings">true</boolProp>
+          </XPathExtractor>
+          <hashTree/>
+          <XPathExtractor guiclass="XPathExtractorGui" testclass="XPathExtractor" testname="ConversationId - XPath Extractor" enabled="true">
+            <stringProp name="XPathExtractor.default">&apos;****DUPA!****&apos;</stringProp>
+            <stringProp name="XPathExtractor.refname">CID</stringProp>
+            <stringProp name="XPathExtractor.xpathQuery">/Envelope/Header/MessageHeader/ConversationId</stringProp>
+            <boolProp name="XPathExtractor.validate">false</boolProp>
+            <boolProp name="XPathExtractor.tolerant">false</boolProp>
+            <boolProp name="XPathExtractor.namespace">false</boolProp>
+            <stringProp name="Scope.variable">BST</stringProp>
+            <boolProp name="XPathExtractor.report_errors">true</boolProp>
+            <boolProp name="XPathExtractor.show_warnings">true</boolProp>
+          </XPathExtractor>
+          <hashTree/>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>true</xml>
+                <fieldNames>false</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+          <DebugPostProcessor guiclass="TestBeanGUI" testclass="DebugPostProcessor" testname="Debug PostProcessor" enabled="false">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySamplerProperties">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="TIMEOUT - SOAP/XML-RPC Request" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">${MOCK_SERVER_URL}</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:eb=&quot;http://www.ebxml.org/namespaces/messageHeader&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; xmlns:xsd=&quot;http://www.w3.org/1999/XMLSchema&quot;&gt;
+    &lt;SOAP-ENV:Header&gt;
+        &lt;eb:MessageHeader SOAP-ENV:mustUnderstand=&quot;1&quot; eb:version=&quot;1.0&quot;&gt;
+            &lt;eb:ConversationId&gt;${CID}&lt;/eb:ConversationId&gt;
+            &lt;eb:From&gt;
+                &lt;eb:PartyId&gt;sws.jmeter.script&lt;/eb:PartyId&gt;
+            &lt;/eb:From&gt;
+            &lt;eb:To&gt;
+                &lt;eb:PartyId&gt;webservices.sabre.com&lt;/eb:PartyId&gt;
+            &lt;/eb:To&gt;
+            &lt;eb:Service eb:type=&quot;string&quot;&gt;TIMEOUTRQ&lt;/eb:Service&gt;
+            &lt;eb:Action&gt;TIMEOUTRQ&lt;/eb:Action&gt;
+            &lt;eb:MessageData&gt;
+                &lt;eb:MessageId&gt;mid:jmeter.script@sabre.com&lt;/eb:MessageId&gt;
+                &lt;eb:Timestamp&gt;2008-07-21T12:00:00&lt;/eb:Timestamp&gt;
+                &lt;eb:TimeToLive&gt;2008-07-21T12:01:00&lt;/eb:TimeToLive&gt;
+            &lt;/eb:MessageData&gt;
+        &lt;/eb:MessageHeader&gt;
+        &lt;wsse:Security xmlns:wsse=&quot;http://schemas.xmlsoap.org/ws/2002/12/secext&quot; xmlns:wsu=&quot;http://schemas.xmlsoap.org/ws/2002/12/utility&quot;&gt;
+            &lt;wsse:BinarySecurityToken&gt;${BST}&lt;/wsse:BinarySecurityToken&gt;
+        &lt;/wsse:Security&gt;
+    &lt;/SOAP-ENV:Header&gt;
+    &lt;SOAP-ENV:Body&gt;
+&lt;TIMEOUTRQ Target=&quot;Test&quot; TimeStamp=&quot;2010-04-01T09:00:12&quot; Version=&quot;2003A.TsabreXML1.11.1&quot; xmlns=&quot;http://webservices.sabre.com/sabreXML/2003/07&quot;&gt;
+&lt;/TIMEOUTRQ&gt;
+    &lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">TIMEOUT</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </SoapSampler>
+        <hashTree>
+          <DebugPostProcessor guiclass="TestBeanGUI" testclass="DebugPostProcessor" testname="Debug PostProcessor" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySamplerProperties">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugPostProcessor>
+          <hashTree/>
+          <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
+            <stringProp name="DurationAssertion.duration">100000</stringProp>
+          </DurationAssertion>
+          <hashTree/>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>true</xml>
+                <fieldNames>false</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+          <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>true</xml>
+                <fieldNames>false</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SessionCloseRQ - SOAP/XML-RPC Request" enabled="false">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">${MOCK_SERVER_URL}</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:eb=&quot;http://www.ebxml.org/namespaces/messageHeader&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; xmlns:xsd=&quot;http://www.w3.org/1999/XMLSchema&quot;&gt;
+    &lt;SOAP-ENV:Header&gt;
+        &lt;eb:MessageHeader SOAP-ENV:mustUnderstand=&quot;1&quot; eb:version=&quot;1.0&quot;&gt;
+            &lt;eb:ConversationId&gt;${CID}&lt;/eb:ConversationId&gt;
+            &lt;eb:From&gt;
+                &lt;eb:PartyId&gt;sws.jmeter.script&lt;/eb:PartyId&gt;
+            &lt;/eb:From&gt;
+            &lt;eb:To&gt;
+                &lt;eb:PartyId&gt;webservices.sabre.com&lt;/eb:PartyId&gt;
+            &lt;/eb:To&gt;
+            &lt;eb:Service eb:type=&quot;string&quot;&gt;SessionCloseRQ&lt;/eb:Service&gt;
+            &lt;eb:Action&gt;SessionCloseRQ&lt;/eb:Action&gt;
+            &lt;eb:MessageData&gt;
+                &lt;eb:MessageId&gt;mid:jmeter.script@sabre.com&lt;/eb:MessageId&gt;
+                &lt;eb:Timestamp&gt;2008-07-21T12:00:00&lt;/eb:Timestamp&gt;
+                &lt;eb:TimeToLive&gt;2008-07-21T12:01:00&lt;/eb:TimeToLive&gt;
+            &lt;/eb:MessageData&gt;
+        &lt;/eb:MessageHeader&gt;
+        &lt;wsse:Security xmlns:wsse=&quot;http://schemas.xmlsoap.org/ws/2002/12/secext&quot; xmlns:wsu=&quot;http://schemas.xmlsoap.org/ws/2002/12/utility&quot;&gt;
+            &lt;wsse:BinarySecurityToken&gt;${BST}&lt;/wsse:BinarySecurityToken&gt;
+        &lt;/wsse:Security&gt;
+    &lt;/SOAP-ENV:Header&gt;
+    &lt;SOAP-ENV:Body&gt;
+        &lt;SessionCloseRQ&gt;
+        &lt;/SessionCloseRQ&gt;
+    &lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">OTA</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>true</xml>
+                <fieldNames>false</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results" enabled="false">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+">
+    
+    <bean id="vehLocSearchGenerator" class="com.sabre.sabresonic.mockserver.frg.generator.FreemarkerGenerator">
+        <property name="configuration" ref="freemarkerConfig"/>
+        <property name="templatePath" value="VehLocSearchRS.ftl"/>
+    </bean>
+    
+    <bean id="vehLocSearchDefaultFdgProcessor" class="com.sabre.sabresonic.mockserver.frg.processor.DefaultFdgProcessor"/>
+    
+    <bean id="vehLocSearchRegexOvervriteProcessor" class="com.sabre.sabresonic.mockserver.frg.processor.RegexOvervriteProcessor">
+        <constructor-arg ref="vehLocSearchDefaultFdgProcessor"/>
+        <property name="generator" ref="vehLocSearchGenerator"/>
+        <property name="regex" value="(?s)(.*ConnectException.*|^$)"/>
+        <property name="processNullResponse" value="true"/>
+    </bean>
+    
+    <bean id="vehLocSearchAddItemProcessor" class="com.sabre.sabresonic.mockserver.frg.processor.AddItemProcessor">
+        <constructor-arg ref="vehLocSearchRegexOvervriteProcessor"/>
+        <property name="minItemsToGenerate" value="20"/>
+        <property name="maxItemsToGenerate" value="45"/>
+        <property name="itemGenerator" ref="vehLocSearchVendorGenerator"/>
+        <property name="xPath" value="//*[local-name()='VehMatchedLocs']"/>
+    </bean>
+    
+    <bean id="vehLocSearchVendorGenerator" class="com.sabre.sabresonic.mockserver.frg.generator.FreemarkerGenerator">
+        <property name="configuration" ref="freemarkerConfig"/>
+        <property name="templatePath" value="VehMatchedLoc.ftl"/>
+        <property name="dataModel" ref="vehLocSearchDataModel"/>
+    </bean>
+    
+    <util:map id="vehLocSearchDataModel" >
+        <entry key="idGenerator">
+            <bean class="java.util.Random"/>
+        </entry>
+    </util:map>
+
+</beans>

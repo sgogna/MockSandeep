@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"><soap-env:Header><eb:MessageHeader xmlns:eb="http://www.ebxml.org/namespaces/messageHeader" eb:version="1.0" soap-env:mustUnderstand="1"><eb:From><eb:PartyId eb:type="URI">123123</eb:PartyId></eb:From><eb:To><eb:PartyId eb:type="URI">99999</eb:PartyId></eb:To><eb:CPAId>B6</eb:CPAId><eb:ConversationId>7B88237CCEBEC866FB03379F4549FAE2</eb:ConversationId><eb:Service>SabreCommand</eb:Service><eb:Action>SabreCommandLLSRS</eb:Action><eb:MessageData><eb:MessageId>58e3f0a4-a3c3-41e7-9129-e42b0f48dba9@176</eb:MessageId><eb:Timestamp>2011-11-25T11:40:16</eb:Timestamp><eb:RefToMessageId>mid:2011-11-25T05:40:15@eb2.com</eb:RefToMessageId></eb:MessageData></eb:MessageHeader><wsse:Security xmlns:wsse="http://schemas.xmlsoap.org/ws/2002/12/secext"><wsse:BinarySecurityToken valueType="String" EncodingType="wsse:Base64Binary">Shared/IDL:IceSess\/SessMgr:1\.0.IDL/Common/!ICESMS\/ACPCRTC!ICESMSLB\/CRT.LB!-3982908007210520063!1168514!0</wsse:BinarySecurityToken></wsse:Security></soap-env:Header><soap-env:Body><SabreCommandLLSRS xmlns="http://webservices.sabre.com/sabreXML/2003/07" EchoToken="String" TimeStamp="2011-11-25T11:40:16" Target="Production" Version="2003A.TsabreXML1.6.1" SequenceNmbr="1" PrimaryLangID="en-us" AltLangID="en-us">
+ <Response><![CDATA[PRICE QUOTE RECORD RETAINED]]><![CDATA[
+  ]]><![CDATA[
+14JAN DEPARTURE DATE-----LAST DAY TO PURCHASE 26NOV/2359]]><![CDATA[
+       BASE FARE                     TAXES             TOTAL]]><![CDATA[
+ 1-    USD267.90                     41.50XT       USD309.40ADT]]><![CDATA[
+    XT     20.10US       7.40ZP       5.00AY       9.00XF ]]><![CDATA[
+          267.90                     41.50            309.40TTL]]><![CDATA[
+ADT-01  OH14AE2U UH14AE2C]]><![CDATA[
+ NYC B6 LAX138.60OH14AE2U B6 NYC129.30UH14AE2C USD267.90END ZP]]><![CDATA[
+ JFKLAX XFJFK4.5LAX4.5]]><![CDATA[
+NONREF - FEE FOR CHG/CXL]]><![CDATA[
+VALIDATING CARRIER SPECIFIED - B6]]></Response>
+</SabreCommandLLSRS></soap-env:Body></soap-env:Envelope>

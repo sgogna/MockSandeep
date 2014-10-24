@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <import resource="classpath:testproxy-connectors.xml"/>
+    <import resource="classpath:proxyjmx.xml"/>
+    <bean id="testProxyProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        <property name="locations">
+            <list>
+                <value>classpath:config/proxy.properties</value>
+            </list>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="false"/>
+        <property name="ignoreResourceNotFound" value="false"/>
+    </bean>
+
+    <bean id="testProxyConfig" class="testproxy.config.Configuration">
+        <property name="mode" value="${proxyMode}"/>
+        <property name="savePath" value="${savePath}"/>
+        <property name="generateCreateSession" value="${generateCreateSession}"/>
+        <property name="fixResponse" value="${fixResponse}"/>
+        <property name="connectTimeout" value="${connectTimeout}"/>
+        <property name="recordFixedResponses" value="${recordFixedResponses}"/>
+        <property name="originalHost" value="${original_host}"/>
+        <property name="useSharedCache" value="${use.shared.cache}"/>
+        <property name="generateFakeResponses" value="${generateFakeResponses}"/>
+        <property name="prodLogsEnabled" value="${prodLogsEnabled}"/>
+        <property name="prodLogsBaseDir" value="${prodLogsBaseDir}"/>
+        <property name="prodLogsResponseId" value="${prodLogsResponseId}"/>
+        <property name="prodLogsTimeout" value="${prodLogsTimeout}"/>
+    </bean>
+
+    <bean id="serviceRegistry" class="testproxy.jmx.ServiceRegistryMBean">
+    </bean>
+
+    <bean id="serviceInfoReader" class="testproxy.servicemanagment.ServiceInfoReader">
+        <property name="serviceInfoFile" value="classpath:config/ServiceRegistry.xml"/>
+    </bean>
+
+    <bean id="securityKeyReader" class="testproxy.keys.SecurityKeyReader" init-method="init">
+        <property name="serviceInfoFile" value="classpath:keys/KeyRegistry.xml"/>
+    </bean>
+
+    <bean id="sessionsInfoManager" class="testproxy.sessionsinfo.SessionsInfoManager">
+        <property name="deleteOlderThan" value="${maxAgeOfRecordInCounterMap}"/>
+    </bean>
+
+    <bean id="dataGrabber" class="testproxy.message.datagrabbers.DataGrabberComposite">
+        <property name="dataGrabbers">
+            <util:list>
+                <bean class="testproxy.message.datagrabbers.PassengerNameDataGrabber"/>
+                <bean class="testproxy.message.datagrabbers.AirBookRequestDataGrabber"/>
+            </util:list>
+        </property>
+    </bean>
+
+    <bean id="dataReplacer" class="testproxy.message.replacers.DataReplacerComposite">
+        <property name="dataReplacers">
+            <util:list>
+                <bean class="testproxy.message.replacers.TravelItineraryReadPassengerNameReplacer"/>
+                <bean class="testproxy.message.replacers.IA_DepartureDatesReplacer"/>
+            </util:list>
+        </property>
+    </bean>
+
+    <bean id="cleanUpMapTask" class="org.springframework.scheduling.timer.MethodInvokingTimerTaskFactoryBean">
+        <property name="targetObject" ref="sessionsInfoManager"/>
+        <property name="targetMethod" value="cleanUpMap"/>
+    </bean>
+
+
+    <bean id="timerCleanUpMapTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+        <property name="timerTask" ref="cleanUpMapTask"/>
+        <property name="delay" value="${periodCleaningUpCounterMap}"/>
+        <property name="period" value="${periodCleaningUpCounterMap}"/>
+    </bean>
+
+    <bean class="org.springframework.scheduling.timer.TimerFactoryBean">
+        <property name="scheduledTimerTasks">
+            <list>
+                <ref local="timerCleanUpMapTask"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dateReplaceEngine" class="testproxy.message.replacers.DateReplaceEngine">
+        <property name="patternList">
+            <list>
+                <bean class="testproxy.message.replacers.patterns.DatePattern1"/>
+                <bean class="testproxy.message.replacers.patterns.DatePattern2"/>
+                <bean class="testproxy.message.replacers.patterns.DatePattern3"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="proxyAuthenticator" class="testproxy.connectors.ProxyAuthenticator"/>
+
+    <bean id="mainFileManager" class="fileManagers.MainFileManager" scope="singleton">
+        <property name="mainDirPath" value="${savePath}"/>
+    </bean>
+
+    <bean id="concurrentRequestsFilesManager"
+          class="com.sabre.ssw.proxy.concurrent.fileManager.ConcurrentRequestsRuleFilesManager">
+        <property name="savePath" value="${concurrentRuleFilesPath}"/>
+    </bean>
+
+    <bean id="concurrentRequestsManager" class="com.sabre.ssw.proxy.concurrent.fileManager.ConcurrentRequestsManager"
+          init-method="readRules">
+        <property name="requestsRuleFilesManager" ref="concurrentRequestsFilesManager"/>
+    </bean>
+    <bean id="profileFilesManager" class="com.sabre.ssw.proxy.compare.profile.ProfileFilesManager">
+        <property name="savePath" value="${customTagsFilePath}"/>
+    </bean>
+
+    <import resource="classpath*:testproxy-env*.xml"/>
+
+    <!--Fake response generator-->
+    <import resource="testproxy-frg-context.xml"/>   
+</beans>

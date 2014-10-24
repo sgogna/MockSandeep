@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       default-lazy-init="true">
+  <bean id="core.main.jmx.exporter" class="org.springframework.jmx.export.MBeanExporter" parent="core.main.jmx.exporterBase" lazy-init="false">
+    <property name="beans">
+      <map>
+        <entry key="configuration" value-ref="testProxyConfig"/>
+        <entry key="ServiceRegistry" value-ref="serviceRegistry"/>
+        <entry key="SessionsInfoManager" value-ref="sessionsInfoManager"/>
+      </map>
+    </property>    
+  </bean>
+  
+  <bean id="core.main.jmx.server" class="testproxy.jmx.DefaultingMBeanServerFactoryBean"/>
+
+  <bean id="core.main.jmx.exporterBase" abstract="true">
+    <property name="server" ref="core.main.jmx.server"/>
+    <property name="namingStrategy" ref="core.main.jmx.namingStrategy"/>
+    <property name="assembler" ref="core.main.jmx.attributeAssembler"/>
+    <property name="exposeManagedResourceClassLoader" value="true" />
+  </bean>
+
+<bean id="core.main.jmx.namingStrategy" class="testproxy.jmx.TestProxyNamingStategy">
+    <property name="contextPath" value="testProxy.server,airline=proxyConfigurations"/>
+  </bean>
+  
+  <bean id="core.main.jmx.attributeAssembler"
+        class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
+    <property name="attributeSource" ref="core.main.jmx.attributeSource"/>
+  </bean>
+  
+  <bean id="core.main.jmx.attributeSource"
+        class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
+
+</beans>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+">
+    
+    <bean id="freemarkerConfig" class="freemarker.template.Configuration">
+        <property name="directoryForTemplateLoading" value="classpath:frg/"/>
+    </bean>
+    
+     <!-- Sample configuration -->
+    <import resource="testproxy-frg-hotel-context.xml"/>
+    <import resource="testproxy-frg-hotel-desc-context.xml"/>
+    <import resource="testproxy-frg-vehaval-context.xml"/>
+    <import resource="testproxy-frg-vehlocsearch-context.xml"/>
+
+    <bean id="frgHandler" class="com.sabre.sabresonic.mockserver.frg.chain.RequestTypeHandler">
+        <property name="processor" ref="hotelAddItemProcessor"/>
+        <property name="regex" value="_SABREGDS_OTA_HotelAvail"/>
+        <property name="successor" ref="hotelDescHandler"/>
+    </bean>
+    
+    <bean id="hotelDescHandler" class="com.sabre.sabresonic.mockserver.frg.chain.RequestTypeHandler">
+        <property name="processor" ref="hotelDescRegexOvervriteProcessor"/>
+        <property name="regex" value="_SABREGDS_OTA_HotelDescriptiveInfo"/>
+        <property name="successor" ref="vehAvailHandler"/>
+    </bean>
+    
+    <bean id="vehAvailHandler" class="com.sabre.sabresonic.mockserver.frg.chain.RequestTypeHandler">
+        <property name="processor" ref="vehAddItemProcessor"/>
+        <property name="regex" value="_SABREGDS_OTA_VehAvailRate"/>
+        <property name="successor" ref="vehLocSearchHandler"/>
+    </bean>
+    
+    <bean id="vehLocSearchHandler" class="com.sabre.sabresonic.mockserver.frg.chain.RequestTypeHandler">
+        <property name="processor" ref="vehLocSearchAddItemProcessor"/>
+        <property name="regex" value="_SABREGDS_OTA_VehLocSearch"/>
+        <!--        <property name="successor" value=""/>-->
+    </bean>
+
+
+</beans>

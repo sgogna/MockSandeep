@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+    <bean name="defaultConnector" class="testproxy.connectors.UnknownServiceConnector" parent="abstractConnector" />
+
+  <bean id="abstractConnector" class="testproxy.connectors.AbstractConnector" abstract="true">
+    <property name="sessionsInfoManager" ref="sessionsInfoManager" />
+    <property name="keyReader" ref="securityKeyReader" />
+  </bean>
+
+  <bean name="connectorList" class="testproxy.connectors.ConnectorList">
+    <property name="defaultConnector" ref="defaultConnector" />
+    <property name="connectors">
+      <list>
+        <bean class="testproxy.connectors.B6.EurocommerceConnector" parent="abstractConnector" />
+        <bean class="testproxy.connectors.B6.ClmConnector" parent="abstractConnector" />
+        <bean class="testproxy.connectors.B6.GdsSabreConnector" parent="abstractConnector" />
+        <bean class="testproxy.connectors.B6.HertzVehicleHttpConnector" parent="abstractConnector" />
+        <bean class="testproxy.connectors.B6.HotelsHttpConnector" parent="abstractConnector">
+          <property name="mainFileManager" ref="mainFileManager" />
+        </bean>
+        <bean class="testproxy.connectors.B6.PayPalConnector" parent="abstractConnector" />
+        <bean class="testproxy.connectors.B6.TravelInsuranceConnector" parent="abstractConnector" />
+        <bean class="testproxy.connectors.EndTestConnector" parent="abstractConnector">
+          <property name="sessionManager" ref="sessionsInfoManager" />
+          <property name="mainFileManager" ref="mainFileManager" />
+          <property name="profileFilesManager" ref="profileFilesManager" />
+        </bean>
+      </list>
+    </property>
+
+  </bean>
+</beans>

@@ -1,0 +1,10 @@
+testId==={"T1T2Transaction":"ShoppingApi_purchase","testId":"T08_RT_DOMESTIC_LOWEST_1ADT_INSURANCE_CC","ssl":"https:\/\/10.136.129.53:870\/testproxy\/s","runId":"test2","original_host":"https:\/\/uatgateway.mondialusa.com\/servlet\/SendPurchases","generateCreateSession":"false","endpoint":"http:\/\/10.136.129.53:871\/testproxy\/s","airline":"Michal","mode":"COMPARE"}@D91F31A2E209339AFFD465A5129BFD7C
+Host===10.136.129.53:870
+Content-Length===2477
+SOAPAction==="urn:accessamerica.services.insurance.travel/SendPurchases"
+User-Agent===Apache CXF 2.4.1-fuse-00-43
+Connection===Keep-Alive
+Accept===*/*
+Content-Type===text/xml; charset=UTF-8
+Pragma===no-cache
+Cache-Control===no-cache

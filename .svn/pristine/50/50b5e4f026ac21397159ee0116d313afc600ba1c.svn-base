@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+">
+    
+    <bean id="hotelAvalGenerator" class="com.sabre.sabresonic.mockserver.frg.generator.FreemarkerGenerator">
+        <property name="configuration" ref="freemarkerConfig"/>
+        <property name="templatePath" value="HotelAvailability.ftl"/>
+    </bean>
+    
+    <bean id="hotelDefaultFdgProcessor" class="com.sabre.sabresonic.mockserver.frg.processor.DefaultFdgProcessor"/>
+    
+    <bean id="hotelRegexOvervriteProcessor" class="com.sabre.sabresonic.mockserver.frg.processor.RegexOvervriteProcessor">
+        <constructor-arg ref="hotelDefaultFdgProcessor"/>
+        <property name="generator" ref="hotelAvalGenerator"/>
+        <property name="regex" value="(?s)(.*ConnectException.*|^$)"/>
+        <property name="processNullResponse" value="true"/>
+    </bean>
+    
+    <bean id="hotelAddItemProcessor" class="com.sabre.sabresonic.mockserver.frg.processor.AddItemProcessor">
+        <constructor-arg ref="hotelRegexOvervriteProcessor"/>
+        <property name="minItemsToGenerate" value="50"/>
+        <property name="maxItemsToGenerate" value="150"/>
+        <property name="itemGenerator" ref="hotelRoomStayGenerator"/>
+        <property name="xPath" value="//*[local-name()='RoomStays']"/>
+    </bean>
+    
+    <bean id="hotelRoomStayGenerator" class="com.sabre.sabresonic.mockserver.frg.generator.FreemarkerGenerator">
+        <property name="configuration" ref="freemarkerConfig"/>
+        <property name="templatePath" value="RoomStay.ftl"/>
+        <property name="dataModel" ref="hotelRoomDataModel"/>
+    </bean>
+    
+    <util:map id="hotelRoomDataModel" >
+        <entry key="idGenerator">
+            <bean class="com.sabre.sabresonic.mockserver.frg.dataModel.ext.RotateIdGenerator">
+                <property name="value" value="1"/>
+                <property name="max" value="150"/>
+            </bean>
+            <!--            <bean class="java.util.Random"/>-->
+        </entry>
+    </util:map>
+    
+
+
+</beans>
